@@ -1,10 +1,23 @@
-# Manager-de-comenzi-de-Black-Friday-In-Java
+# Command Black Friday Manager
 
-Pentru procesarea comenzilor, se pornesc de la inceput P thread-uri care vor citi fiecare din fisierul de comenzi,
-fiecare pornind de la linia corespunzatoare ID-ului sau si sarind din P in P linii, pentru a se asigura ca fiecare 
-thread citeste alta grupare de linii. Apoi, fiecare thread va porni alt thread care va cauta cate un produs din 
-comanda data, tinand intr-un AtomicInteger partajat intre toate thread-urile numarul de thread-uri active care 
-cauta produse, asigurandu-se ca acesta nu depaseste niciodata P. Thread-urile ce cauta produse vor citi fisierul 
-de produse si se vor opri asupra produsului corespunzator comenzii de care se ocupa si cu numarul dat de ID-ul sau. 
-Odata ce toate aceste thread-uri ce cauta produse au terminat si au expediat produsele, thread-ul care se ocupa 
-de comanda o expediaza si trece la urmatoarea comanda.
+The goal is to process orders in parallel, respectively to process each individual product (even within the same order) in parallel. Thus, at any moment in time an order can have a part of products shipped, but only when all the products within it are sent can it be said that the order is shipped.
+
+**Input Data**
+
+The input files are the following:
+\
+➢ orders.txt (lines following the pattern id_command, no_products) 
+\
+➢ order_products.txt (lines following the pattern id_command, no_products) 
+
+**Output Data**
+
+The output files are the following:
+\
+➢ orders_out.txt (lines following the pattern id_command, no_products, status) 
+\
+➢ order_products_out.txt (lines following the pattern id_command, no_products, status)  
+
+**Implementation**
+
+To process the commands, P threads are started from the beginning that will read each of the commands file, each starting from the line corresponding to its ID and jumping from P to P lines, to ensure that each thread reads another group of lines. Then, each thread will start another thread that will search for one product from given command, holding in an AtomicInteger shared between all threads the number of active threads that looks for products, making sure it never exceeds P. Threads looking for products will read the file of products and will stop on the product corresponding to the order it is dealing with and with the number given by its ID. Once all of these product-seeking threads have finished and shipped the products, the handling thread of the order ships it and moves on to the next order.
